@@ -5,7 +5,7 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	eventController = require('./server/controllers/EventController.js')
 
-mongoose.connect('mongodb://localhost:27017/D3JDataBase');
+mongoose.connect('mongodb://localhost:27017/EventDataBase');
 
 app.use(bodyParser());
 
