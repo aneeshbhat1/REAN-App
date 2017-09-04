@@ -1,31 +1,24 @@
-var express=require('express'),
-	mongoose=require('mongoose'),
-	app=express	();
+var express = require('express'),
+	mongojs = require('mongojs'),
+	mongoose = require('mongoose'),
+	app = express(),
+	bodyParser = require('body-parser'),
+	eventController = require('./server/controllers/EventController.js')
 
-mongoose.connect('mongodb://localhost:27017/mean-demo');
+mongoose.connect('mongodb://localhost:27017/D3JDataBase');
 
-app.get('/',function(req,res){
-	res.sendFile(__dirname+'/client/views/index.html');
+app.use(bodyParser());
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/client/views/index.html');
 });
 
-app.use('/js',express.static(__dirname+'/client/js'));
+app.use(express.static(__dirname + '/client'));
 
-app.post('/api/employees',module.exports.create=function(req,res){
-	
-});
+app.get("/Events", eventController.getAllEvents);
 
-var Schema = mongoose.Schema;
-var employeeSchema=new Schema({name:String});
+//app.post("/SaveAxisData", barGraphController.saveAxisData);
 
-mongoose.model('employees',employeeSchema);
-
-app.get('/employees',function(req,res)
-{
-	mongoose.model('employees').find(function(err,employees){
-		res.send(employees);
-	});
-})
-
-app.listen(3000,function(req,res){
-	console.log('Im listening');	
+app.listen(3000, function (req, res) {
+    console.log('I\'m listening');
 });
